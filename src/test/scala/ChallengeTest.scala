@@ -19,12 +19,12 @@ class ChallengeTest extends FunSuite {
     assert((MinimumAverageWatingTimeCalculator calculate(1, times)) == 4)
   }
 
-  test("test case 1") {
+  test("test case 1: ((0,3),(1,9),(2,6)) -> 9") {
     val times = List((0,3),(1,9),(2,6))
     assert((MinimumAverageWatingTimeCalculator calculate(3, times)) == 9)
   }
 
-  test("test case 2") {
+  test("test case 2: ((0,3),(1,9),(2,5)) -> 8") {
     val times = List((0,3),(1,9),(2,5))
     assert((MinimumAverageWatingTimeCalculator calculate(3, times)) == 8)
   }
