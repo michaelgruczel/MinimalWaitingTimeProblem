@@ -50,8 +50,8 @@ object MinimumAverageWatingTimeCalculator {
 
     // Init with first oder
     var sortedJobs = times.sortWith(_._1 < _._1)
-    var currentTime = sortedJobs.head._1
-    var overallWaitingTime = 0
+    var currentTime = BigInt(sortedJobs.head._1)
+    var overallWaitingTime = BigInt(0)
 
     // loop until all jobs are executed
     while(sortedJobs.length > 0) {
@@ -59,8 +59,8 @@ object MinimumAverageWatingTimeCalculator {
       val fastestAlreadyOrderedJob = findFastestAllreadyOrderedJob(currentTime, sortedJobs)
 
       // recalculate times and jump to next appearing order
-      val finishingTime = currentTime + fastestAlreadyOrderedJob._2
-      val waitingTime = finishingTime - fastestAlreadyOrderedJob._1
+      val finishingTime = currentTime + BigInt(fastestAlreadyOrderedJob._2)
+      val waitingTime = finishingTime - BigInt(fastestAlreadyOrderedJob._1)
       overallWaitingTime += waitingTime
       currentTime = finishingTime
 
@@ -68,7 +68,7 @@ object MinimumAverageWatingTimeCalculator {
       sortedJobs = sortedJobs.filterNot(elm => elm == fastestAlreadyOrderedJob)
     }
 
-    (overallWaitingTime / numberOfCustomers)
+    (overallWaitingTime / BigInt(numberOfCustomers)).intValue()
   }
 
   /*
@@ -83,7 +83,7 @@ object MinimumAverageWatingTimeCalculator {
     ) throw new scala.IllegalArgumentException
   }
 
-  private def findFastestAllreadyOrderedJob(currentTime: Int, notExecutedJobs:List[(Int, Int)]) : (Int, Int) = {
+  private def findFastestAllreadyOrderedJob(currentTime: BigInt, notExecutedJobs:List[(Int, Int)]) : (Int, Int) = {
     val allJobsStartingAtThatTime = notExecutedJobs.groupBy(_._1 <= currentTime).get(true)
     allJobsStartingAtThatTime.head.sortWith(_._2 < _._2).head
   }
